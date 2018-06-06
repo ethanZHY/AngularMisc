@@ -1,0 +1,27 @@
+.login-card {
+    margin: auto;
+    background-color: rgba(236, 239, 241, 0.0);
+    max-width: 350px;
+    padding: 20px;
+}
+
+.login-title {
+    font-size: 2em;
+    color: #37474F;
+}
+
+.form-full-width {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.icon {
+    color: #37474f
+}
+
+button {
+    outline: none;
+    background-color: rgba(55, 71, 79, 0.8);
+    color: whitesmoke;
+    border-radius: 0;
+}
