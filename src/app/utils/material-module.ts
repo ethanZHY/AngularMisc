@@ -1,4 +1,4 @@
-import { MatFormFieldModule, MatButtonModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatInputModule, MatDividerModule } from "@angular/material";
+import { MatFormFieldModule, MatButtonModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatInputModule, MatDividerModule, MatCheckboxModule } from "@angular/material";
 
 export const MATERIAL_MODULE = [
     MatFormFieldModule,
@@ -9,4 +9,5 @@ export const MATERIAL_MODULE = [
     MatButtonModule,
     MatInputModule,
     MatDividerModule,
+    MatCheckboxModule,
 ];

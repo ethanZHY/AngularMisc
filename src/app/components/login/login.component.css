@@ -14,9 +14,22 @@
     width: 100%;
     margin-top: 5px;
 }
+.checkBox {
+    color: #37474F;
+    line-height: 40px;
+}
 
 .icon {
-    color: #37474f
+    color: #37474f;
+}
+
+.links {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #37474F;
 }
 
 button {
