@@ -1,11 +1,11 @@
-.login-card {
+.register-card {
     margin: auto;
     background-color: rgba(236, 239, 241, 0.0);
     max-width: 350px;
     padding: 20px;
 }
 
-.login-title {
+.register-title {
     font-size: 2em;
     color: #37474F;
 }

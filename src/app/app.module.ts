@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { MaterialDashboardComponent } from './components/material-dashboard/material-dashboard.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     APP_ROUTING_MODULE,
     MATERIAL_MODULE,
     ReactiveFormsModule,

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { LoginEvent } from '../../models/app-models';
 import { JWT_AUTH_HEADER, JWT_AUTH_TOKEN } from '../../models/app-constants';
+import { AuthService } from '../../services/auth.service';
 
 /**
  * @author Ethan Zhang
@@ -16,19 +17,17 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide: boolean;
   loginEvent: LoginEvent;
-  constructor(private userService : UserService) {}
+  constructor(private userService: UserService, private authService: AuthService) {}
 
   ngOnInit() {
     this.hide = true;
     this.loginForm = new FormGroup({
         'email': new FormControl('', [Validators.required, Validators.email]),
         'password': new FormControl('', [Validators.required]),
-        'remember': new FormControl(''),
     });
-    this.loginForm.patchValue({checked: false});
   }
 
-  emailErrorMessage(): String {
+  emailErrorMessage(): string {
     return this.loginForm.hasError('required', ['email']) ? 'Please enter your email.' : 
       this.loginForm.hasError('email', ['email']) ? 'Not a valid email.': '';
   }
@@ -44,13 +43,11 @@ export class LoginComponent implements OnInit {
       this.loginEvent = { action: "login", success: false };
       if (resp.status === 200) {
         this.loginEvent.success = true;
-        const jwtToken = resp.headers.getALL(JWT_AUTH_HEADER);
-        if (jwtToken.length> 0) {
-          localStorage.setItem(JWT_AUTH_TOKEN, jwtToken[0]);
-        }
+        const jwtToken = resp.headers.get(JWT_AUTH_HEADER);
+        this.authService.setToken(jwtToken);
         this.userService.eventEmitter.emit(this.loginEvent);
       }
     })
   }
-
+  
 }

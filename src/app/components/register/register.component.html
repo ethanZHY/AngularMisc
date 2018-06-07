@@ -1,0 +1,30 @@
+<div class="container">
+    <form class="register-card" [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+      <div class="register-title">
+        Register
+      </div>
+      <mat-form-field class="form-full-width">
+        <input matInput type="email" id="email" formControlName="email" placeholder="Email">
+        <mat-error *ngIf="registerForm.get('email').invalid">{{emailErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-full-width">
+        <input matInput type="text" id="username" formControlName="username" placeholder="Username">
+        <mat-error *ngIf="registerForm.get('username').invalid">Username can't be empty.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-full-width">
+        <input matInput type="password" formControlName="password" placeholder="Password">
+        <mat-error *ngIf="registerForm.get('password').invalid">Password should contains at least 8 characters</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-full-width">
+        <input matInput type="password" formControlName="confirm" placeholder="Confirm Password">
+        <mat-error *ngIf="registerForm.hasError('mismatch', 'confirm')">Password doesn't match.</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button class="form-full-width" type="submit" [disabled]="!isValid()">SIGN UP</button>
+      <div class="signup-link">
+          Already have an account? <a [routerLink]="['/login']">Sign In</a>
+      </div>
+    </form>
+  </div>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

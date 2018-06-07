@@ -1,7 +1,7 @@
 <div class="container">
   <form class="login-card" [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
     <div class="login-title">
-      Sign In
+      App
     </div>
     <mat-form-field class="form-full-width">
       <input matInput type="email" id="email" formControlName="email" placeholder="Email">
@@ -13,14 +13,14 @@
       <mat-icon matSuffix class="icon" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       <mat-error *ngIf="loginForm.get('password').invalid">Password can't be empty.</mat-error>
     </mat-form-field>
-    <mat-checkbox class="checkBox" color="primary" formControlName="remember">Remember me</mat-checkbox>
+    <div class="reset-link">
+      <a href="/forgotPassword">Forgot password?</a>
+    </div>
     <button mat-raised-button class="form-full-width" type="submit" [disabled]="!isValid()">SIGN IN</button>
+    <div class="signup-link">
+        New to App? <a [routerLink]="['/register']">Sign Up</a>
+    </div>
   </form>
-  <div class="links">
-      <!-- [routerLink]="/forgotPassword" -->
-    <a  >Forgot password?</a>
-  </div>
- 
 </div>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
