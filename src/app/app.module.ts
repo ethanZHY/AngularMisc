@@ -12,12 +12,14 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 import { MaterialDashboardComponent } from './components/material-dashboard/material-dashboard.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DIRECTIVES_MODULE } from './utils/app.directives-module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     APP_COMPONENTS_MODULE,
+    DIRECTIVES_MODULE,
     MaterialDashboardComponent,
   ],
   imports: [
