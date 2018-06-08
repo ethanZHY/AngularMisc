@@ -1,5 +1,7 @@
-import { CompareValidatorDirective } from "../directives/compare-validator.directive";
+import { ComparePasswordValidatorDirective } from "../directives/compare-password-validator.directive";
+import { UniqueUsernameValidatorDirective } from "../directives/unique-username-validator.directive";
 
 export const DIRECTIVES_MODULE = [
-    CompareValidatorDirective,
+    ComparePasswordValidatorDirective,
+    UniqueUsernameValidatorDirective,
 ]

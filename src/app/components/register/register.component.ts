@@ -3,7 +3,12 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, Async
 import { UserService } from '../../services/user.service';
 import { SignUpUser } from '../../models/app-models';
 import { Router } from '@angular/router';
-import { compareValidator } from '../../directives/compare-validator.directive';
+import { compareValidator } from '../../directives/compare-password-validator.directive';
+import { uniqueUsernameValidator } from '../../directives/unique-username-validator.directive';
+
+/**
+ * @author Ethan Zhang
+ */
 
 @Component({
   selector: 'app-register',
@@ -17,14 +22,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.userService.getAllUsers().subscribe();
   }
 
   createForm() {
     this.registerForm = new FormGroup({
       'email': new FormControl('', [Validators.email, Validators.required]),
-      'username': new FormControl('', Validators.required),
-      'password': new FormControl('',[Validators.required, Validators.minLength(8)]),
-      'pwConfirm': new FormControl('', [Validators.required, compareValidator('password')] ),
+      'username': new FormControl('', Validators.required, uniqueUsernameValidator(this.userService)),
+      'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
+      'pwConfirm': new FormControl('', [Validators.required, compareValidator('password')]),
     });
   }
 
@@ -45,18 +51,23 @@ export class RegisterComponent implements OnInit {
   }
 
   emailErrorMsg(): string {
-    return this.registerForm.hasError('required', ['email']) ? 'Please enter your email.' : 
-      this.registerForm.hasError('email', ['email']) ? 'Not a valid email.': '';
+    return this.email.errors['required'] ? 'Please enter your email.' :
+      this.email.errors['email'] ? 'Not a valid email.' : '';
   }
 
   pwComfirmErrorMsg(): string {
-    return this.pwConfirm.errors['required'] ? 'Password confirm is required.' : 
-      this.pwConfirm.errors['mismatch'] ? 'Password confirm do not match' : '';
+    return this.pwConfirm.errors['required'] ? 'Password confirm is required.' :
+      this.pwConfirm.errors['mismatch'] ? 'Password confirm do not match.' : '';
+  }
+
+  usernameErrorMsg(): string {
+    return this.username.errors['required'] ? 'Username is required.' :
+      this.username.errors['exist'] ? 'Username already exists.' : null;
   }
 
   register() {
-    const user = this.registerForm.value;
-    this.userService.register(user).subscribe(resp=>{
+    const user: SignUpUser = this.registerForm.value;
+    this.userService.register(user).subscribe(resp => {
       if (resp.successful === true) {
         this.router.navigate(['/login']);
       }

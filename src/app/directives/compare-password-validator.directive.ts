@@ -2,6 +2,10 @@ import { Directive, Input } from '@angular/core';
 import { AbstractControl, ValidationErrors, NG_VALIDATORS, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
+/**
+ * @author Ethan Zhang
+ */
+
 export function compareValidator( controlNameToCompare: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (control.value === null || control.value.length === 0) {
@@ -20,10 +24,10 @@ export function compareValidator( controlNameToCompare: string): ValidatorFn {
 
 @Directive({
   selector: '[compare]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: CompareValidatorDirective, multi: true }],
+  providers: [{ provide: NG_VALIDATORS, useExisting: ComparePasswordValidatorDirective, multi: true }],
 
 })
-export class CompareValidatorDirective {
+export class ComparePasswordValidatorDirective {
   @Input('compare') controlNameToCompare: string;
 
   constructor() { }
