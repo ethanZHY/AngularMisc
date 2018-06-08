@@ -5,18 +5,18 @@
     </div>
     <mat-form-field class="form-full-width">
       <input matInput type="email" id="email" formControlName="email" placeholder="Email">
-      <mat-error *ngIf="loginForm.get('email').invalid">{{emailErrorMessage()}}</mat-error>
+      <mat-error *ngIf="email.invalid">{{emailErrorMsg()}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-full-width">
       <input matInput [type]="hide? 'password': 'text'" formControlName="password" placeholder="Password">
       <mat-icon matSuffix class="icon" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-      <mat-error *ngIf="loginForm.get('password').invalid">Password can't be empty.</mat-error>
+      <mat-error *ngIf="password.invalid">Password can't be empty.</mat-error>
     </mat-form-field>
     <div class="reset-link">
       <a href="/forgotPassword">Forgot password?</a>
     </div>
-    <button mat-raised-button class="form-full-width" type="submit" [disabled]="!isValid()">SIGN IN</button>
+    <button mat-raised-button class="form-full-width" type="submit" [disabled]="loginForm.invalid">SIGN IN</button>
     <div class="signup-link">
         New to App? <a [routerLink]="['/register']">Sign Up</a>
     </div>

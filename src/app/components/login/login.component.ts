@@ -27,13 +27,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  emailErrorMessage(): string {
-    return this.loginForm.hasError('required', ['email']) ? 'Please enter your email.' : 
-      this.loginForm.hasError('email', ['email']) ? 'Not a valid email.': '';
+  get email() {
+    return this.loginForm.get('email');
+  }
+  
+  get password() {
+    return this.loginForm.get('password');
   }
 
-  isValid(): boolean {
-    return this.loginForm.valid;
+  emailErrorMsg(): string {
+    return this.loginForm.hasError('required', ['email']) ? 'Please enter your email.' : 
+      this.loginForm.hasError('email', ['email']) ? 'Not a valid email.': '';
   }
   
   login() {

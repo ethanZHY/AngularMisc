@@ -54,10 +54,6 @@ export class RegisterComponent implements OnInit {
       this.pwConfirm.errors['mismatch'] ? 'Password confirm do not match' : '';
   }
 
-  isValid(): boolean {
-    return this.registerForm.valid;
-  }
-
   register() {
     const user = this.registerForm.value;
     this.userService.register(user).subscribe(resp=>{
