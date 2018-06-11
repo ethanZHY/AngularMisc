@@ -20,7 +20,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   login(loginUser: LoginUser): Observable<HttpResponse<any>>{
-    return this.httpClient.post<any>('/login', loginUser);
+    return this.httpClient.post<any>('/login', loginUser, {observe: 'response'});
   }
 
   logout() {
@@ -29,7 +29,7 @@ export class UserService {
   }
   
   register(user: SignUpUser) {
-    return this.httpClient.post<any>('/register', user);
+    return this.httpClient.post<any>('/users/sign-up', user, {observe: 'response'});
   }
 
   getAllUsers() {

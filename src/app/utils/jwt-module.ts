@@ -1,5 +1,5 @@
 import { JwtModule } from "@auth0/angular-jwt";
-import { JWT_AUTH_TOKEN } from "../models/app-constants";
+import { JWT_AUTH_TOKEN, JWT_AUTH_HEADER } from "../models/app-constants";
 
 /**
  * @author Ethan Zhang
@@ -15,6 +15,7 @@ export const JWT_MODULE =
         config:{
             skipWhenExpired: true,
             tokenGetter: tokenGetter,
+            headerName: JWT_AUTH_HEADER,
             // whitelistedDomains: ['localhost:4200'],
             // blacklistedRoutes:['localhost:4200/auth/'],
         }

@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { LoginEvent } from '../../models/app-models';
 import { JWT_AUTH_HEADER } from '../../models/app-constants';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 /**
  * @author Ethan Zhang
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide: boolean;
   loginEvent: LoginEvent;
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.hide = true;
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(loginUser).subscribe( resp => {
       this.loginEvent = { action: "login", success: false };
       if (resp.status === 200) {
+        this.router.navigateByUrl('/home');
         this.loginEvent.success = true;
         const jwtToken = resp.headers.get(JWT_AUTH_HEADER);
         this.authService.setToken(jwtToken);

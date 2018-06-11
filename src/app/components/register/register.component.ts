@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
   register() {
     const user: SignUpUser = this.registerForm.value;
     this.userService.register(user).subscribe(resp => {
-      if (resp.successful === true) {
+      if (resp.status === 200) {
         this.router.navigate(['/login']);
       }
     })
