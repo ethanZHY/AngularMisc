@@ -12,7 +12,7 @@ export function uniqueUsernameValidator(userService: UserService): AsyncValidato
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
     return userService.getUserByUsername(control.value).pipe(
       map(users => {
-        return users && users.length > 0 ? {'exist': true} : null;
+        return users && users.length > 0 ? {'taken': true} : null;
       })
     )
   }

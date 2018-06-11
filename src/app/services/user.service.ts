@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { LoginEvent, LoginUser, SignUpUser } from '../models/app-models';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { HttpResponse, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpResponse, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JWT_AUTH_TOKEN } from '../models/app-constants';
 import { Router } from '@angular/router';
 /**
@@ -20,7 +20,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   login(loginUser: LoginUser): Observable<HttpResponse<any>>{
-    return this.httpClient.post<any>('/api/login', loginUser);
+    return this.httpClient.post<any>('/login', loginUser);
   }
 
   logout() {
@@ -29,14 +29,14 @@ export class UserService {
   }
   
   register(user: SignUpUser) {
-    return this.httpClient.post<any>('/api/register', user);
+    return this.httpClient.post<any>('/register', user);
   }
 
   getAllUsers() {
     return this.httpClient.get<any[]>(this.JSON_PLACEHOLDE_URL).pipe(
       map(users => {
         const usernames = [];
-        users.forEach( u => usernames.push({username: u.username}));
+        users.forEach( u => usernames.push({username: u.username, email: u.email}));
         return usernames;
       }),
       tap(users => console.log(users))
@@ -45,6 +45,11 @@ export class UserService {
 
   getUserByUsername(username: string) {
     return this.httpClient.get<any[]>(`${this.JSON_PLACEHOLDE_URL}?username=${username}`);
+  }
+
+  getUserByEmail(email: string) {
+    const par = new HttpParams().set('email', email);
+    return this.httpClient.get<any[]>(this.JSON_PLACEHOLDE_URL, { params: par });
   }
   
 }

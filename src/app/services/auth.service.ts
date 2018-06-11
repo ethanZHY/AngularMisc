@@ -25,6 +25,5 @@ export class AuthService {
     const token = this.getToken();
     return !this.jwtHelperService.isTokenExpired(token);
   }
-
-  isLoggedIn() { }
+  
 }
