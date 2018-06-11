@@ -2,12 +2,13 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { LoginEvent, LoginUser, SignUpUser } from '../models/app-models';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { HttpResponse, HttpClient } from '@angular/common/http';
+import { HttpResponse, HttpClient, HttpHeaders } from '@angular/common/http';
 import { JWT_AUTH_TOKEN } from '../models/app-constants';
 import { Router } from '@angular/router';
 /**
  * @author Ethan Zhang
  */
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +20,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   login(loginUser: LoginUser): Observable<HttpResponse<any>>{
-    return this.httpClient.post<any>('/login', loginUser, {});
+    return this.httpClient.post<any>('/api/login', loginUser);
   }
 
   logout() {
@@ -28,7 +29,7 @@ export class UserService {
   }
   
   register(user: SignUpUser) {
-    return this.httpClient.post<any>('/register', user, {});
+    return this.httpClient.post<any>('/api/register', user);
   }
 
   getAllUsers() {

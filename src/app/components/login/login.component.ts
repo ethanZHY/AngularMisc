@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { LoginEvent } from '../../models/app-models';
-import { JWT_AUTH_HEADER, JWT_AUTH_TOKEN } from '../../models/app-constants';
+import { JWT_AUTH_HEADER } from '../../models/app-constants';
 import { AuthService } from '../../services/auth.service';
 
 /**

@@ -12,7 +12,8 @@ import { MaterialDashboardComponent } from './components/material-dashboard/mate
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DIRECTIVES_MODULE } from './utils/app.directives-module';
-import { UniqueUsernameValidatorDirective } from './directives/unique-username-validator.directive';
+import { JWT_MODULE } from './utils/jwt-module';
+import { IN_MEMORY_WEB_API_MODULE } from './utils/app.in-memory-module';
 
 
 @NgModule({
@@ -21,11 +22,12 @@ import { UniqueUsernameValidatorDirective } from './directives/unique-username-v
     APP_COMPONENTS_MODULE,
     DIRECTIVES_MODULE,
     MaterialDashboardComponent,
-    UniqueUsernameValidatorDirective,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    // IN_MEMORY_WEB_API_MODULE,
+    JWT_MODULE,
     APP_ROUTING_MODULE,
     MATERIAL_MODULE,
     ReactiveFormsModule,

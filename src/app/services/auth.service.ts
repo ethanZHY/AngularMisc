@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { JWT_AUTH_TOKEN } from '../models/app-constants';
-import {JwtHelperService } from '@auth0/angular-jwt';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
+/**
+ * @author Ethan Zhang
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +25,6 @@ export class AuthService {
     const token = this.getToken();
     return !this.jwtHelperService.isTokenExpired(token);
   }
-
 
   isLoggedIn() { }
 }
