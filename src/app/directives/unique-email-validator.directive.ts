@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, AsyncValidatorFn, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,8 @@ export function uniqueEmailValidator(userService: UserService): AsyncValidatorFn
 }
 
 @Directive({
-  selector: '[appUniqueEmail]'
+  selector: '[UniqueEmail]',
+  providers: [{provide: NG_ASYNC_VALIDATORS, useExisting: UniqueEmailValidatorDirective, multi: true}]
 })
 export class UniqueEmailValidatorDirective {
 

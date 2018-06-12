@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { LoginEvent } from '../../models/app-models';
 import { JWT_AUTH_HEADER } from '../../models/app-constants';
@@ -18,13 +18,15 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide: boolean;
   loginEvent: LoginEvent;
+  invalidCrediential: boolean;
   constructor(private userService: UserService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.hide = true;
+
     this.loginForm = new FormGroup({
         'email': new FormControl('', [Validators.required, Validators.email]),
-        'password': new FormControl('', [Validators.required]),
+        'password': new FormControl('', [Validators.required, this.passwordError()]),
     });
   }
 
@@ -37,13 +39,23 @@ export class LoginComponent implements OnInit {
   }
 
   emailErrorMsg(): string {
-    return this.loginForm.hasError('required', ['email']) ? 'Please enter your email.' : 
-      this.loginForm.hasError('email', ['email']) ? 'Not a valid email.': '';
+    return this.email.errors['required'] ? 'Please enter your email.' : 
+      this.email.errors['email'] ? 'Not a valid email.': '';
   }
-  
+
+  passwordErrorMsg(): string {
+    return this.password.errors['required'] ? 'Password can not be empty.' :
+      this.password.errors['credential'] ? 'Incorrect password.' : null;
+  }
+
+  passwordError(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return null;
+    }
+  }
+
   login() {
     const loginUser = this.loginForm.value;
-    console.log(this.loginForm.value);
     this.userService.login(loginUser).subscribe( resp => {
       this.loginEvent = { action: "login", success: false };
       if (resp.status === 200) {
@@ -53,7 +65,11 @@ export class LoginComponent implements OnInit {
         this.authService.setToken(jwtToken);
         this.userService.eventEmitter.emit(this.loginEvent);
       }
-    })
+    },
+    error => {
+      if (error.status === 403)
+        this.password.setErrors({'credential': true});
+    });
   }
   
 }
